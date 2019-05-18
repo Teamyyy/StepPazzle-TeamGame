@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//改善の必要しかないプログラムなのでこれを参考にしないこと
 public class MapInfo : MonoBehaviour
 {
     //ステージ情報を格納したシングルトン。MapCreaterとPlayerから呼ばれる。

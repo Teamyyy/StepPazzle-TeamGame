@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     //ステージ情報、Playerの初期座標をここから入手する
     private MapInfo mapInfo;
 
+    //下４つの変数はまだ実装途中
     private int stageHeight;
     private int stageWidth;
 
@@ -33,25 +34,25 @@ public class Player : MonoBehaviour
         //マップ情報に応じてPlayerの初期座標を変更する
         mapInfo = MapInfo.Instance;
         Vector3 playerPos = new Vector3(0, 0, 0);
-        stageHeight = mapInfo.GetStageHeight();
-        stageWidth = mapInfo.GetstageWidth();
-
+        //MapInfoよりプレイヤーの位置となる2の位置を受け取りそこを初期地点にさせる
         playerX = mapInfo.GetplayerPositionX();
         playerZ = mapInfo.GetplayerPositionZ();
+        //初期地点に移動させる
         playerPos = new Vector3(playerX, 1, playerZ);
-
-
         transform.position = playerPos;
+
+        //この2文は気にしないこと
+        stageHeight = mapInfo.GetStageHeight();
+        stageWidth = mapInfo.GetstageWidth();
 
         //移動方向ベクトルの初期化
         moveVector = new Vector3(0, 0, 0);
         //目的座標をリセット
         targetPos = transform.position;
-        //アタッチされたオブジェクトのサイズを所得
+        //アタッチされたオブジェクト、地面のパネルのサイズを所得
         movePannelSize = pannel.GetComponent<MeshRenderer>().bounds.size.x;
     }
 
-    // Update is called once per frame
     void Update()
     {
         //移動中かどうかの判定。移動中でなければ入力を受付
@@ -62,10 +63,11 @@ public class Player : MonoBehaviour
             if (TargetPositionHaveWall() == false)
             {
                 targetPos = transform.position + moveVector;
+                //この3文も気にしない
                 playerX += (int)moveVector.x;
                 playerZ += (int)moveVector.z;
                 Debug.Log("x: y:" + playerX + playerZ);
-                
+
             }
         }
         Move();
